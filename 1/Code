@@ -1,0 +1,48 @@
+#Step 1: Model and tokenizer loading.
+#Step 2: Pipeline initialization.
+#Step 3: Prompt formatting.
+#Step 4: Text generation.
+#Step 5: Output extraction.
+
+
+
+!pip install transformers accelerate 
+from transformers import AutoTokenizer
+import transformers
+import torch
+
+model = "entbappy/Llama-2-7b-chat-finetune"
+
+tokenizer = AutoTokenizer.from_pretrained(model)
+
+pipeline = transformers.pipeline(
+    "text-generation",
+    model=model,
+    torch_dtype=torch.float16,
+    device_map="auto"
+)
+
+prompt = "What is a large language model?"
+
+sequences = pipeline(
+    f'<s>[INST] {prompt} [/INST]',
+    do_sample=True,
+    top_k=10,
+    num_return_sequences=1,
+    eos_token_id=tokenizer.eos_token_id,
+    max_length=200
+)
+
+for seq in sequences:
+    print(seq['generated_text'])
+
+# We start with Llama 2, which has already been trained on a huge amount of text.
+# We take a dataset containing domain-specific questions and answers.
+# We train the existing model further on this dataset.
+# The model's parameters (weights) are adjusted.
+# We get a fine-tuned model that is better adapted to our target task.
+
+
+# Notebook	Purpose
+# Fine_tune_Llama_2.ipynb	Actually fine-tunes the existing Llama 2 model
+# Fine_Tune_Model_Test.ipynb	Loads the fine-tuned model and tests its responses
