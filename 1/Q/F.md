@@ -63,8 +63,6 @@ C. Fine-tunes the model.
 
 D. Converts the question into embeddings.
 
-
-
 The next actual line is:
 
 ```
@@ -112,8 +110,6 @@ B. The model samples the next token from its probability distribution.
 C. The model converts text into embeddings.
 
 D. The model disables token generation.
-
-
 
 The next actual line is:
 
@@ -200,9 +196,6 @@ C. Five complete sentences.
 
 D. Five training examples.
 
-
-
-
 Let's understand this line in detail:
 
 ```
@@ -285,8 +278,6 @@ B. Three complete responses.
 C. Three training datasets.
 
 D. Three embeddings.
-
-
 
 Let's understand this line step by step:
 
@@ -374,10 +365,6 @@ C. The number of layers in Llama 2.
 
 D. The number of generated responses.
 
-
-
-
-
 Let's understand this line:
 
 ```
@@ -458,9 +445,6 @@ B. 230
 C. 170
 
 D. 30
-
-
-
 
 This is the final part of your inference notebook. It takes the generated response and displays it.
 
@@ -574,3 +558,79 @@ Check answer
 **You have now completed the main inference workflow in **`<span>Fine_Tune_Model_Test.ipynb</span>`**.**
 
 The next useful step is to understand the entire project from beginning to end and practise explaining it as you would in a GenAI placement interview.
+
+
+
+
+## **Python Imports — **`<span>import</span>`** vs **`<span>from ... import ...</span>`
+
+### **1. Two ways to import**
+
+**Import the entire module:**
+
+```
+import transformers
+```
+
+Access its components using the module prefix:
+
+```
+transformers.AutoTokenizer
+transformers.AutoModel
+transformers.pipeline
+```
+
+**Import a specific component:**
+
+```
+from transformers import AutoTokenizer
+```
+
+Access it directly without the module prefix:
+
+```
+AutoTokenizer
+```
+
+### **2. Superset vs. Subset analogy**
+
+
+| Import                                                | Analogy                     | Access                                    |
+| ----------------------------------------------------- | --------------------------- | ----------------------------------------- |
+| `<span>import transformers</span>`                    | Superset (whole module)     | `<span>transformers.AutoTokenizer</span>` |
+| `<span>from transformers import AutoTokenizer</span>` | Subset (specific component) | `<span>AutoTokenizer</span>`              |
+
+If we import the whole module, we don't need to separately import a specific component, **provided we access it through the module namespace**.
+
+### **3. Example**
+
+```
+import transformers
+
+tokenizer = transformers.AutoTokenizer.from_pretrained("bert-base-uncased")
+```
+
+This is sufficient. We don't need an additional import for `<span>AutoTokenizer</span>`.
+
+### **4. Important namespace distinction**
+
+```
+import transformers
+
+transformers.AutoTokenizer  # Works
+AutoTokenizer               # NameError
+```
+
+Because `<span>AutoTokenizer</span>` is available under the `<span>transformers</span>` namespace, not directly in our namespace.
+
+Whereas:
+
+```
+from transformers import AutoTokenizer
+
+AutoTokenizer  # Works directly
+```
+
+### **Key takeaway**
+
+> `<span>import module</span>` imports the module into its namespace, whereas `<span>from module import component</span>` imports a particular component directly into our namespace. Both allow us to use the component; the difference is how we access it.

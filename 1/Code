@@ -4,7 +4,15 @@
 #Step 4: Text generation.
 #Step 5: Output extraction.
 
+# Training (Fine_tune_Llama_2.ipynb): This was the previous step where the base Llama
+# 2 model was trained on a custom Q&A dataset, adjusting its weights and saving 
+# the resulting fine-tuned model ("entbappy/Llama-2-7b-chat-finetune") to Hugging
+# Face.
 
+# Inference / Testing (Fine_Tune_Model_Test.ipynb — this current cell): Here, no 
+# training or weight updates happen at all. You are simply downloading those saved
+# weights, feeding in a test question ("What is a large language model?"), and verifying 
+# that the fine-tuned model generates a coherent response in the expected [INST] format.
 
 !pip install transformers accelerate 
 from transformers import AutoTokenizer
